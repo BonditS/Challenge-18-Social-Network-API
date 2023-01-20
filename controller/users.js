@@ -48,19 +48,16 @@ module.exports = {
     //Delete a user
     deleteUser(req, res) {
         User.findOneAndDelete({_id: req.params.id})
-        .then((user) => 
-        !user
-        ?res.status(404).json({ message: 'No user with input ID'})
-        :Thought.deleteMany({ _id: {$in: user.thoughts}})
-        )
+            .then((user) => 
+            !user
+            ?res.status(404).json({ message: 'No user with input ID'})
+            :Thought.deleteMany({ _id: {$in: user.thoughts}})
+            )
         .then((user) => res.json(404).json({message: 'User data were deleted'}))
         .catch((err) => res.status(500).json(err));
 
     },
-    //add a friend
-    addFriend(req, res) {
 
-    }
     //update a Friend
     updateFriend(req, res) {
         User.findONeAndUpdate(
@@ -68,6 +65,26 @@ module.exports = {
             { $addToSet: {friends: req.params.friendId}},
             { new: true}
         )
+        .then((user) => 
+            !user
+            ? res.status(404).json({ message: 'No user with input ID'})
+            : res.json({message: 'Friend was added'})
+            )
+            .catch((err) => res.status(500).json(err))
         
+    },
+
+    deleteFriend(req, res) {
+        User.findOneAndUpdate(
+            {_id: req.params.userId},
+            {$pull: {friends: req.params.friendId}},
+            {new: true}
+        )
+        .then((user) =>
+            !user
+            ? res.status(404).json({message: "No user with input ID"})
+            : res.json({ message: 'Friend was deleted'})
+            )
+            .catch((err) => res.status(500).json(err))
     }
 };
