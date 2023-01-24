@@ -1,10 +1,9 @@
 const express = require("express");
-const db = require('./config/connection.js');
+const db = require('./config/connection');
 const routes = require("./routes")
 
-const app = express();
 const PORT = process.env.PORT || 3001;
-
+const app = express();
 //middleware function 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
