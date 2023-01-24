@@ -19,7 +19,7 @@ module.exports = {
     },
 
     //Create one thought
-    createThougth(req, res) {
+    createThought(req, res) {
         User.findOneAndUpdate(
             { _id: req.body.userId },
             { $addToSet: {thoughts: thought._id}},

@@ -1,7 +1,6 @@
 //deconstruct Schema, model from mongoose module
 //import objectId to use with the _id filed so that i can create a new unique id.
 const {Schema, model} = require('mongoose')
-const moment = require('moment')
 const ObjectId = require('mongodb').ObjectId;
 
 const reactionSchema = new Schema(
@@ -41,11 +40,9 @@ const thoughtSchema = new Schema (
             maxlenght: 500
         },
         createdAt: {
-            type: Date,
-            default: Date.now,
-            get: function(createdAt) {
-                return SVGAnimateMotionElement(createdAt).format("MM/DD/YYYY hh:mm:ss")
-            }
+                type: Date,
+                default: Date.now,
+                get: createdAt => moment(createdAt).formate("MM/DD/YYYY hh:mm:ss")
         },
 
         userName: {
@@ -69,4 +66,4 @@ thoughtSchema.virtual('reactionCount').get(function () {
 
 const Thought = model('thought', thoughtSchema);
 
-export default Thought;
+module.export = Thought;
