@@ -11,10 +11,10 @@ module.exports = {
     //Get one thought
     getThoughtById(req, res) {
         Thought.findOne({ _id: req.params.thoughtId })
-        .then((thought) =>
-            !thought
+        .then((thoughts) =>
+            !thoughts
             ? res.status(404).json({ message: 'No thougth with input ID'})
-            : res.status(200).json(thought))
+            : res.status(200).json(thoughts))
         .catch((err) => res.status(500).json(err));
     },
 
@@ -22,7 +22,7 @@ module.exports = {
     createThought(req, res) {
         User.findOneAndUpdate(
             { _id: req.body.userId },
-            { $addToSet: {thoughts: thought._id}},
+            { $addToSet: {thoughts: Thought._id}},
             { new: true}
         )
         .then((user) => 
@@ -40,10 +40,10 @@ module.exports = {
             { $addFields: req.body},
             { runValidators: true, new: true }
         )
-        .then((thought)=>
-        !thought
+        .then((thoughts)=>
+        !thoughts
             ? res.status(400).json({ message: "No thought with input ID"})
-            : res.status(200).json(thought))
+            : res.status(200).json(thoughts))
         .catch((err) => res.status(500).json(err));
     },
 
@@ -52,8 +52,8 @@ module.exports = {
         Thought.findOneAndDelete(
             { _id: req.params.thoughtId}
         )
-        .then((thought) =>
-            !thought
+        .then((thoughts) =>
+            !thoughts
                 ? res.status(404).json({ message: 'No thougth with input ID'})
                 : User.findOneAndUpdate(
                     { thoughts: req.params.thoughtId},
@@ -76,10 +76,10 @@ module.exports = {
             { $addToSet: { reactions: req.body}},
             { new: true}
         ) 
-        .then((thought) => 
-            !thought
+        .then((thoughts) => 
+            !thoughts
             ? res.status(404).json({ message: 'No thougth with input ID'})
-            : res.status(200).json(thought)
+            : res.status(200).json(thoughts)
         )
         .catch((err) => res.status(500).json(err));
     },
@@ -91,8 +91,8 @@ module.exports = {
             { $pull: {reactions: {reactionId: req.params.reactionId}}},
             { new: true}
         )
-        .then((thougth) =>
-            !thought
+        .then((thougths) =>
+            !thougths
             ?res.status(404).json({ message: 'No thought with input ID'})
             :res.status(200).json({ message: 'Reaction deleted successfully'})
         )
