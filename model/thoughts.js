@@ -1,7 +1,7 @@
 //deconstruct Schema, model from mongoose module
 //import objectId to use with the _id filed so that i can create a new unique id.
+
 const {Schema, model} = require('mongoose')
-const ObjectId = require('mongodb').ObjectId;
 
 const reactionSchema = new Schema(
     {
@@ -20,7 +20,7 @@ const reactionSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: createdAt => moment(createdAt).formate("MM/DD/YYYY hh:mm:ss")
+            get: createdAt => moment(createdAt).format("MM/DD/YYYY hh:mm:ss")
         }
     });
 
@@ -37,12 +37,12 @@ const thoughtSchema = new Schema (
             type: String,
             required: true,
             minLength: 1,
-            maxlenght: 500
+            maxLenght: 500
         },
         createdAt: {
                 type: Date,
                 default: Date.now,
-                get: createdAt => moment(createdAt).formate("MM/DD/YYYY hh:mm:ss")
+                get: createdAt => moment(createdAt).format("MM/DD/YYYY hh:mm:ss")
         },
 
         userName: {
@@ -61,9 +61,9 @@ const thoughtSchema = new Schema (
 
         
 thoughtSchema.virtual('reactionCount').get(function () {
-    return this.reaction.length
+    return this.reactions.length
 });
 
 const Thought = model('thought', thoughtSchema);
 
-module.export = Thought;
+module.exports = Thought;

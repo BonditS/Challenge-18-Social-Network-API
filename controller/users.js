@@ -1,5 +1,5 @@
 //import users model
-const{ User, Thought }= require('../model/index');
+const{ User, Thought }= require('../model');
 
 
 //export 

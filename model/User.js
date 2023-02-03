@@ -1,7 +1,8 @@
 // Use Mongoose to create schema and stamp out model
 // Import mongoos, using destructuring to unpack schema and model method
-
+const { ObjectId } = require('mongoose').Types;
 const { Schema, model} = require( "mongoose");
+
 
 //define the shape of our data
 
@@ -9,7 +10,7 @@ const userSchema = new Schema(
     {
         userName: {
             type: String,
-            uniqe: true,
+            unique: true,
             required: true,
             trim: true
         },
@@ -17,7 +18,7 @@ const userSchema = new Schema(
             type: String,
             trim: true,
             lowercase: true,
-            uniqe: true,
+            unique: true,
             required: [true, "Please fill a valid email address"],
             match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Please fill a valid email address"]
         },

@@ -1,4 +1,4 @@
-const {Thought ,User } = require('./model/index')
+const {Thought ,User } = require('../model')
 
 module.exports = {
     //find all thought
